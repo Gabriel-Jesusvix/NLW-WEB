@@ -5,6 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import "./styles/main.css";
 import logo from "./assets/logo.svg";
 import { CreateAddModal } from "./components/CreateAddModal";
+import axios from "axios";
 
 export interface Game {
   id: string;
@@ -19,12 +20,10 @@ export function App() {
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/games")
-      .then((response) => response.json())
-      .then((data) => {
-        setGames(data);
-      });
-  });
+    axios("http://localhost:3000/games").then((response) => {
+      setGames(response.data);
+    });
+  }, []);
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
       <img src={logo} />
