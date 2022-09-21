@@ -20,7 +20,7 @@ export function App() {
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    axios("http://localhost:3000/games").then((response) => {
+    axios(`${import.meta.env.VITE_API_KEY}/games`).then((response) => {
       setGames(response.data);
     });
   }, []);

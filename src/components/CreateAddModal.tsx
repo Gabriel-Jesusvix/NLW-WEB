@@ -13,7 +13,7 @@ export function CreateAddModal() {
   const [useVoiceChannel, setUseVoiceChannel] = useState(false);
 
   useEffect(() => {
-    axios("http://localhost:3000/games").then((response) => {
+    axios(`${import.meta.env.VITE_API_KEY}/games`).then((response) => {
       setGames(response.data);
     });
   }, []);
@@ -28,15 +28,18 @@ export function CreateAddModal() {
       return;
     }
     try {
-      await axios.post(`http://localhost:3000/games/${data.game}/ads`, {
-        name: data.name,
-        yearsPLaying: Number(data.yearsPLaying),
-        discord: data.discord,
-        weekDays: weekDays?.map(Number),
-        hourStart: data.hourStart,
-        hourEnd: data.hourEnd,
-        useVoiceChannel: useVoiceChannel,
-      });
+      await axios.post(
+        `${import.meta.env.VITE_API_KEY}/games/${data.game}/ads`,
+        {
+          name: data.name,
+          yearsPLaying: Number(data.yearsPLaying),
+          discord: data.discord,
+          weekDays: weekDays?.map(Number),
+          hourStart: data.hourStart,
+          hourEnd: data.hourEnd,
+          useVoiceChannel: useVoiceChannel,
+        }
+      );
 
       alert("Anúncio criado com sucesso!");
     } catch (error) {
